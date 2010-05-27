@@ -1,0 +1,39 @@
+﻿<Window x:Class="WPFDataGridExamples.Menu"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="Menu" Height="435" Width="300">
+    <Grid>
+        <StackPanel Margin="5" Button.Click="ButtonClick">
+            <GroupBox Header="DataSet Examples">
+                <StackPanel>
+                    <Button Content="Simple CRUD Example" Tag="DataSetCRUDExample"></Button>
+                    <Button Content="Master Detail Example" Tag="MasterDetailExample"></Button>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Layered Application Examples">
+                <StackPanel>
+                    <Button Content="Layered Application Example" Tag="ObjectExample"></Button>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Validation Examples">
+                <StackPanel>
+                    <Button Content="Validation On Exception" Tag="ValidationByException"></Button>
+                    <Button Content="Validation using IDataErrorInfo" Tag="ValidationIDataErrorInfo"></Button>
+                    <Button Content="Validation with DataSets" Tag="DataSetValidationExample"></Button>
+                </StackPanel>
+            </GroupBox>
+            <GroupBox Header="Styling Examples">
+                <StackPanel>
+                    <Button Content="Custom Column Template" Tag="CustomCellExample"></Button>
+                    <Button Content="Other Styling Examples" Tag="StylingExample"></Button>
+                    <Button Content="Row Headers Examples" Tag="RowHeaderExample"></Button>
+                    <Button Content="Completely Re-Styled DataGrid" Tag="CompleteStylingExample"></Button>
+                </StackPanel>
+            </GroupBox>
+            <TextBlock Name="ConfigWarning" Visibility="Hidden" FontSize="13" TextWrapping="Wrap" Foreground="Red" Margin="10">
+                You must edit app.config and supply a connection string to run the DataSet examples - and also the same connection string
+                in Properties/Settings.Designer.cs (line 30) to view the DataGrids in Visual Studio designer
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

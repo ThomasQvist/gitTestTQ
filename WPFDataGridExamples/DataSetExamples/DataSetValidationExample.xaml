@@ -1,0 +1,77 @@
+﻿<Window x:Class="WPFDataGridExamples.DataSetValidationExample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:WPFDataGridExamples"
+    Title="Window1" Height="300" Width="300" xmlns:my="http://schemas.microsoft.com/wpf/2008/toolkit">
+    <Window.Resources>
+        <ObjectDataProvider x:Key="Customers" ObjectType="{x:Type local:CustomerDataProvider}" MethodName="GetCustomers"/>
+
+
+        <!--Basic Row Validation Error Template-->
+        <ControlTemplate x:Key="BasicRowValidationErrorTemplate">
+            <DockPanel LastChildFill="True">
+                <TextBlock DockPanel.Dock="Right" Foreground="LightGreen" FontSize="14" FontWeight="Bold">*</TextBlock>
+                <Border BorderBrush="LightGreen" BorderThickness="2">
+                    <AdornedElementPlaceholder Name="adornerPlaceholder"></AdornedElementPlaceholder>
+                </Border>
+            </DockPanel>
+        </ControlTemplate>
+
+        <Style TargetType="{x:Type my:DataGridCell}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!--Default Row Style-->
+        <Style TargetType="{x:Type my:DataGridRow}">
+            <Setter Property="MaxHeight" Value="150" />
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        
+    </Window.Resources>
+    <DockPanel>
+        <my:DataGrid  ItemsSource="{Binding Source={StaticResource Customers}}" Name="dataGrid" AutoGenerateColumns="False"
+                      SelectionChanged="dataGrid_SelectionChanged" >
+            <my:DataGrid.RowValidationRules>
+                <local:DataRowValidation ValidationStep="UpdatedValue" />
+            </my:DataGrid.RowValidationRules>
+            <my:DataGrid.Columns>
+                <my:DataGridTextColumn x:Name="IDColumn" Header="CustomerID" IsReadOnly="True">
+                    <my:DataGridTextColumn.Binding>
+                        <Binding Path="CustomerID">
+                            <Binding.ValidationRules>
+                                <local:DataRowValidation ValidationStep="UpdatedValue" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </my:DataGridTextColumn.Binding>
+                </my:DataGridTextColumn>
+                <my:DataGridTextColumn Header="CompanyName">
+                    <my:DataGridTextColumn.Binding>
+                        <Binding Path="CompanyName">
+                            <Binding.ValidationRules>
+                                <local:DataRowValidation ValidationStep="UpdatedValue" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </my:DataGridTextColumn.Binding>
+                </my:DataGridTextColumn>
+                <my:DataGridTextColumn Header="ContactName">
+                    <my:DataGridTextColumn.Binding>
+                        <Binding Path="ContactName">
+                            <Binding.ValidationRules>
+                                <local:DataRowValidation ValidationStep="UpdatedValue" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </my:DataGridTextColumn.Binding>
+                </my:DataGridTextColumn>                
+            </my:DataGrid.Columns>
+        </my:DataGrid>
+    </DockPanel>
+</Window>

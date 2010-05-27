@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WPFDataGridExamples.DataAccessLayer.CustomerDataAccessLayer" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="5.5" Width="2.25" />
+    <Members>
+      <Method Name="BusinessObjectFromDataRow" Hidden="true" />
+      <Method Name="CustomerDataAccessLayer" Hidden="true" />
+      <Method Name="DataRowFromBusinessObject" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAABAACAgAAAAAAAAAAAAAIAAABAAA=</HashCode>
+      <FileName>ObjectBindingExamples\DataAccessLayer\CustomerDataAccessLayer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="WPFDataGridExamples.DataAccessLayer.CustomerDataObject">
+    <Position X="4" Y="5.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAQAAAAAAAgAAAAAAgAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectBindingExamples\DataAccessLayer\CustomerDataObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WPFDataGridExamples.CustomerObjectDataProvider">
+    <Position X="0.75" Y="2" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAACAAAAAEAAAAAAAQABAAA=</HashCode>
+      <FileName>ObjectBindingExamples\CustomerObjectDataProvider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WPFDataGridExamples.ObjectBindingExamples.CustomerUIObjects">
+    <Position X="4" Y="2.5" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAAAAAAAAAAAgAAAAAAAAAAAAAAACAAAAA=</HashCode>
+      <FileName>ObjectBindingExamples\CustomerUIObjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WPFDataGridExamples.ObjectBindingExamples.CustomerUIObject" BaseTypeListCollapsed="true">
+    <Position X="7.25" Y="1.75" Width="1.75" />
+    <Members>
+      <Method Name="CustomerUIObject" Hidden="true" />
+      <Method Name="GetDataObject" Hidden="true" />
+      <Method Name="RaisePropertyChanged" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAQAADCAAAgAAAAAAhAAAAgAAQAAAAAAAAACAgAAA=</HashCode>
+      <FileName>ObjectBindingExamples\CustomerUIObjects.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Microsoft.Windows.Controls.DataGrid" Collapsed="true">
+    <Position X="1" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Tahoma" Size="8.25" />
+</ClassDiagram>

@@ -1,0 +1,26 @@
+﻿<Window x:Class="WPFDataGridExamples.ObjectExample"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WPFDataGridExamples"
+    xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"
+    Title="Northwind Customer via Layered Application" Height="300" Width="600">
+
+    <Window.Resources>
+        <!-- create an instance of our DataProvider class -->
+        <ObjectDataProvider x:Key="CustomerDataProvider" ObjectType="{x:Type local:CustomerObjectDataProvider}"/>
+        <!-- define the method which is invoked to obtain our data -->
+        <ObjectDataProvider x:Key="Customers" ObjectType="{x:Type local:CustomerObjectDataProvider}" MethodName="GetCustomers"/>
+    </Window.Resources>
+    
+    <DockPanel>
+        <dg:DataGrid  ItemsSource="{Binding Source={StaticResource Customers}}" Name="dataGrid" AutoGenerateColumns="False"
+                      SelectionChanged="dataGrid_SelectionChanged">
+            <dg:DataGrid.Columns>
+                <dg:DataGridTextColumn x:Name="IDColumn" Header="CustomerID" IsReadOnly="True" Binding="{Binding Path=ID}"/>
+                <dg:DataGridTextColumn Header="CompanyName" Binding="{Binding Path=CompanyName}"/>
+                <dg:DataGridTextColumn Header="ContactName" Binding="{Binding Path=ContactName}"/>
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+    </DockPanel>
+
+</Window>

@@ -1,0 +1,89 @@
+﻿<Window x:Class="WPFDataGridExamples.ValidationByException"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WPFDataGridExamples"
+    xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"
+    Title="Validation Example" Height="300" Width="300" >
+    
+    <Window.Resources>
+        
+        <!-- the data source for this Window -->
+        <ObjectDataProvider x:Key="PersonDataSource" ObjectType="{x:Type local:PersonDataSource}"/>
+        <ObjectDataProvider x:Key="People" ObjectInstance="{StaticResource PersonDataSource}" MethodName="GetPeople"/>
+        
+        <!-- TextBox style which displays validation errors as a tooltip -->
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        
+        <!-- style to apply to DataGridTextColumn in edit mode  -->
+        <Style x:Key="CellEditStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={RelativeSource Self}, Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- A Row Style which renders a different validation error indicator -->
+        <Style x:Key="RowStyle" TargetType="{x:Type dg:DataGridRow}">
+            <Setter Property="ValidationErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Grid>
+                            <Ellipse Width="12" Height="12" Fill="Red" Stroke="Black" StrokeThickness="0.5"/>
+                            <TextBlock FontWeight="Bold" Padding="4,0,0,0" Margin="0" VerticalAlignment="Top" Foreground="White" Text="!"
+                                       ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dg:DataGridRow}},
+                                                         Path=(Validation.Errors)[0].ErrorContent}"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    
+    <DockPanel DataContext="{Binding Source={StaticResource People}}">
+        <!-- a simple details view which is synchronised with the selected item in the data grid -->
+        <GroupBox DockPanel.Dock="Bottom" Header="Detaljer"  Margin="5">
+            <Grid x:Name="Details" Margin="5"   >            
+                <Grid.ColumnDefinitions x:Uid="112">
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Text="RIGTIGTLANGT"/>
+                <TextBox Grid.Column="1" Text="{Binding Path=Name, ValidatesOnExceptions=True}" />
+                
+                <TextBlock Grid.Row="1" Text="Age:"/>
+                <TextBox  Grid.Row="1" Grid.Column="1" Text="{Binding Path=Age, ValidatesOnExceptions=True}" />          
+            </Grid>
+        </GroupBox>
+                        
+        <dg:DataGrid Name="dataGrid" AutoGenerateColumns="False" IsSynchronizedWithCurrentItem="True"
+                     ItemsSource="{Binding}">       
+            <dg:DataGrid.RowValidationRules>
+                <local:RowDummyValidation/>
+            </dg:DataGrid.RowValidationRules>
+            <dg:DataGrid.Columns>
+                <dg:DataGridTextColumn Header="Name" EditingElementStyle="{StaticResource CellEditStyle}"
+                                       Binding="{Binding Path=Name, ValidatesOnExceptions=True}"/>                    
+                <dg:DataGridTextColumn Header="Age" EditingElementStyle="{StaticResource CellEditStyle}"
+                                       Binding="{Binding Path=Age, ValidatesOnExceptions=True}"/>
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+        
+    </DockPanel>
+</Window>

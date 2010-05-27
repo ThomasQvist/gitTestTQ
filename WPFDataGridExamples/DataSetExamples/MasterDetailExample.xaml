@@ -1,0 +1,57 @@
+﻿<Window x:Class="WPFDataGridExamples.MasterDetailExample"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:WPFDataGridExamples"
+        xmlns:dg="http://schemas.microsoft.com/wpf/2008/toolkit"
+        Title="Master Details View" Height="600" Width="600" >
+    
+    <Window.Resources>
+        <!-- the customers datasource -->
+        <ObjectDataProvider x:Key="CustomerDataProvider" ObjectType="{x:Type local:CustomerDataProvider}"/>
+        <ObjectDataProvider x:Key="Customers" ObjectInstance="{StaticResource CustomerDataProvider}" MethodName="GetCustomers"/>
+
+        <!-- the orders datasource -->
+        <ObjectDataProvider x:Key="OrdersDataProvider" ObjectType="{x:Type local:OrdersDataProvider}"/>
+        <ObjectDataProvider x:Key="Orders" ObjectInstance="{StaticResource OrdersDataProvider}" MethodName="GetOrdersByCustomer">
+            <ObjectDataProvider.MethodParameters>
+                <x:Static Member="system:String.Empty"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>        
+        
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <dg:DataGrid Grid.Row="0" Name="CustomerGrid" ItemsSource="{Binding Source={StaticResource Customers}}" 
+                     SelectedValuePath="CustomerID" SelectionChanged="CustomerGrid_SelectionChanged"/>
+
+        <dg:DataGrid Grid.Row="1" ItemsSource="{Binding Source={StaticResource Orders}}"
+                     AutoGenerateColumns="True" RowEditEnding="DataGrid_RowEditEnding">
+            <dg:DataGrid.Columns>
+                 <dg:DataGridTextColumn Binding="{Binding Mode=OneWay, Path=OrderID}" Header="OrderID" IsReadOnly="True" />
+                <!--<dg:DataGridTextColumn Binding="{Binding Path=CustomerID}" Header="CustomerID" />-->
+                <dg:DataGridTextColumn Binding="{Binding Path=EmployeeID}" Header="EmployeeID" />
+                <dg:DataGridTextColumn Binding="{Binding Path=OrderDate}" Header="OrderDate" />
+                <dg:DataGridTextColumn Binding="{Binding Path=RequiredDate}" Header="RequiredDate" />
+                <dg:DataGridTextColumn Binding="{Binding Path=ShippedDate}" Header="ShippedDate" />
+                <dg:DataGridTextColumn Binding="{Binding Path=ShipVia}" Header="ShipVia" />
+                <dg:DataGridTextColumn Binding="{Binding Path=Freight}" Header="Freight" />
+                <dg:DataGridTextColumn Binding="{Binding Path=ShipName}" Header="ShipName" />
+                <dg:DataGridTextColumn Binding="{Binding Path=ShipAddress}" Header="ShipAddress" />
+                <dg:DataGridTextColumn Binding="{Binding Path=ShipCity}" Header="ShipCity" />
+                <dg:DataGridTextColumn Binding="{Binding Path=ShipRegion}" Header="ShipRegion" />
+                <dg:DataGridTextColumn Binding="{Binding Path=ShipPostalCode}" Header="ShipPostalCode" />
+                <dg:DataGridTextColumn Binding="{Binding Path=ShipCountry}" Header="ShipCountry" />
+            </dg:DataGrid.Columns>
+        </dg:DataGrid>
+
+    </Grid>
+</Window>
